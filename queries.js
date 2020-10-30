@@ -1,12 +1,17 @@
 require('dotenv').config()
 const Pool = require('pg').Pool
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-})
+var pool;
+if (!process.env.DATABASE_URL) {
+  pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+  })
+} else {
+  pool = new Pool(process.env.DATABASE_URL);
+}
 
 const getPets = (request, response) => {
   pool.query('SELECT * FROM pets ORDER BY id ASC', (error, results) => {
