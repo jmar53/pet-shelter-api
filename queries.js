@@ -10,7 +10,9 @@ if (!process.env.DATABASE_URL) {
     port: process.env.DB_PORT,
   })
 } else {
-  pool = new Pool(process.env.DATABASE_URL);
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL
+  });
 }
 
 const getPets = (request, response) => {
