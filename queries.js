@@ -25,7 +25,7 @@ const createTable = (request, response) => {
 }
 
 const getPets = (request, response) => {
-  pool.query('SELECT * FROM pets ORDER BY id ASC', (error, results) => {
+  pool.query('SELECT * FROM pets ORDER BY name ASC', (error, results) => {
     if (error) {
       throw error;
     }
