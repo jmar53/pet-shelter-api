@@ -47,11 +47,11 @@ const getPetById = (request, response) => {
 const createPet = (request, response) => {
   const { name, pet_type, breed, location, latitude, longitude } = request.body;
 
-  pool.query('INSERT INTO pets (name, pet_type, breed, location, latitude, longitude) VALUES ($1, $2, $3, $4, $5, $6)', [name, pet_type, breed, location, latitude, longitude], (error, results) => {
+  pool.query('INSERT INTO pets (name, pet_type, breed, location, latitude, longitude) VALUES ($1, $2, $3, $4, $5, $6) RETURNING ID', [name, pet_type, breed, location, latitude, longitude], (error, results) => {
     if (error) {
       throw error;
     }
-    response.status(201).send(`Pet Added`);
+    response.status(201).send(`${results.rows[0].id}`);
   })
 }
 
