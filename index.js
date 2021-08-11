@@ -1,6 +1,8 @@
+const compression = require('compression');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+app.use(compression());
 const db = require('./queries');
 const port = process.env.PORT || 3000;
 
